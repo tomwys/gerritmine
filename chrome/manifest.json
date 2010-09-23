@@ -1,0 +1,13 @@
+{
+"content_scripts": [
+  {
+  "js": [ "jquery.min.js", "configuration.js", "gerritmine.js", "main.js" ],
+  "matches": [ "<all_urls>" ]
+  }
+],
+"description": "Adds to Gerrit integration with Redmine.",
+"name": "gerritmine",
+"version": "0.1",
+"options_page": "options.html",
+"background_page": "background.html"
+}

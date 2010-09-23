@@ -1,0 +1,18 @@
+<html>
+  <script type="text/javascript" src="configuration.js"></script>
+  <script type="text/javascript">
+    var configuration = defaultConfigurationManager();
+    chrome.extension.onRequest.addListener(
+    function(request, sender, sendResponse) {
+      if (request.what == "configuration") {
+        var response = {};
+        for(var i = 0; i < request.names.length; i++) {
+          var name = request.names[i];
+          response[name] = configuration.get(name);
+        }
+        sendResponse(response);
+      } else
+        sendResponse(undefined);
+    });
+  </script>
+</html>

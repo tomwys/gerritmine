@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title>gerritmine - configuration</title>
+    <script type="text/javascript" src="configuration.js" ></script>
+    <script type="text/javascript" src="jquery.min.js" ></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        var configuration = defaultConfigurationManager();
+
+        function bindCheckbox(name) {
+          var node = $("#option_" + name);
+          var value = configuration.get(name);
+          if(value == "on") {
+            node.attr('checked', 'checked');
+          } else {
+            node.removeAttr('checked');
+          }
+          node.change(function() {
+            var value;
+            if(node.attr('checked'))
+              value = "on";
+            else
+              value = "off";
+            configuration.set(name, value);
+          });
+        }
+        function bindRadio(name) {
+          var nodes = $('*[name="'+name+'"]');
+          var value = configuration.get(name);
+          nodes.each(function(i, node) {
+            node = $(node);
+            if(node.val() == value)
+              node.attr("checked", "checked");
+          });
+          nodes.change(function(e){
+            node = $(e.target);
+            if(node.attr("checked")) {
+              configuration.set(name, node.val());
+            }
+          });
+        }
+        function bindText(name) {
+          var nodes = $('*[name="'+name+'"]');
+          var value = configuration.get(name);
+          nodes.val(value);
+          nodes.change(function(e){
+            node = $(e.target);
+            configuration.set(name, node.val());
+          });
+        }
+
+        bindText("gerrit_address");
+        bindText("redmine_address");
+      });
+    </script>
+  </head>
+  <body>
+    <h1>gerritmine - options</h1>
+    <label for="gerrit_address">Gerrit address:</label><input id="gerrit_address" name="gerrit_address" type="text" /><br />
+    <label for="redmine_address">Redmine address:</label><input id="gerrit_address" name="redmine_address" type="text" />
+  </body>
+</html>
